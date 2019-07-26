@@ -1,1 +1,4 @@
 #put all the required pip libraries in this file then you can run pip install -r requirements.txt to install all the required libraries.
+RPI.GPIO
+adafruit-blinka
+adafruit-circuitpython-tcs34725
