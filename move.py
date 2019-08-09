@@ -53,12 +53,51 @@ left_motor = Motor(robitConfig.values.getint("motor.left.gpio.pin1"),
                     robitConfig.values.getint("motor.left.gpio.pin2"), 
                     robitConfig.values.getint("motor.left.gpio.pwm.pin"))
 
+def forward(speed=100):
+    right_motor.forward(speed)
+    left_motor.forward(speed)
 
-if __name__ == '__main__':
-    right_motor.forward()
-    left_motor.forward()
-    time.sleep(3)
+def backward(speed=100):
+    right_motor.backward(speed)
+    left_motor.backward(speed)
+
+def stop():
     right_motor.stop()
     left_motor.stop()
+
+# negative values pivot left, positive values pivot right. 
+# not necessarily accurate to the degree, more of a ballpark attempt...
+def pivot(degrees):
+    stop()
+    if(degrees > 0):
+        right_motor.backward(85)
+        left_motor.forward(85)
+    else:
+        right_motor.forward(85)
+        left_motor.backward(85)
+    time.sleep(robitConfig.values.getfloat("motor.pivot.factor")*abs(degrees)) 
+    stop()
+
+if __name__ == '__main__':
+    pivot(-90)
+    # pivot(90)
+    # forward()
+    # time.sleep(.3)
+    # pivot(90)
+    # forward()
+    # time.sleep(.3)
+    # pivot(90)
+    # forward()
+    # time.sleep(.3)
+    # pivot(90)
+    # forward()
+    # time.sleep(.3)
+    # stop()
+
+    # right_motor.backward()
+    # left_motor.backward()
+    # time.sleep(3)
+    # right_motor.stop()
+    # left_motor.stop()
     GPIO.cleanup()
 
