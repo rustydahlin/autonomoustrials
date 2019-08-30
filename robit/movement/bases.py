@@ -1,10 +1,6 @@
 '''
 Class for all the interfaces that will be needed for movemnt of the robit
 '''
-
-DIRECTION_POSITIVE = True
-DIRECTION_NEGATIVE = False
-
 class MovementBase(object):
     '''
     Base class for all motor controllers mostly used as interface

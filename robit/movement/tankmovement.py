@@ -105,7 +105,16 @@ class TankMovement(robit.movement.bases.MovementBase):
         direction - Use Global Constants positive would be forward negative would be backwards
         distance - integer for how many units to move in the direction
         '''
-        raise NotImplementedError('travel method has not been implemented yet')
+        if distance:
+            raise NotImplementedError("Sorry have not implemented the Distance yet")
+        if self.reverse:
+            direction = direction * -1
+        if direction > 0:
+            self.leftmotor.clockwise(self.travelspeed)
+            self.rightmotor.clockwise(self.travelspeed)
+        else:
+            self.leftmotor.counterclockwise(self.travelspeed)
+            self.rightmotor.counterclockwise(self.travelspeed)
 
     def rotate(self, direction, degrees=None):
         '''
@@ -113,17 +122,28 @@ class TankMovement(robit.movement.bases.MovementBase):
         direction - USE the GLOBAL Constants positive is right negative is left if connected correctly
         degrees - integer for how many degrees to rotate if none continuous rotation
         '''
-        raise NotImplementedError('rotate method has not been implemented yet')
+        if degrees:
+            raise NotImplementedError("Sorry have not implemented the Degrees yet")
+        if self.reverse:
+            direction = direction * -1
+        if direction > 0:
+            self.leftmotor.clockwise(self.rotatespeed)
+            self.rightmotor.counterclockwise(self.rotatespeed)
+        else:
+            self.leftmotor.counterclockwise(self.rotatespeed)
+            self.rightmotor.clockwise(self.rotatespeed)
 
     def stop(self):
         '''
         Should implement a normal stop with any necessary cleanup and run out of motors as needed.
         '''
-        raise NotImplementedError('stop method has not been implemented yet')
+        self.leftmotor.stop()
+        self.rightmotor.stop()
 
     def emergency_stop(self):
         '''
         Should implement a method where the motors stop as fast as possible with the least amount of cleanup or travel.
         Should only be used in emergency situations.
         '''
-        raise NotImplementedError('emergency_stop method has not been implemented yet')
+        self.leftmotor.brakestop()
+        self.rightmotor.brakestop()
