@@ -83,8 +83,8 @@ class L298Motor(robit.motor.bases.Motor):
         rotate the motor clockwise
         '''
         self.pwm.ChangeDutyCycle(0)
-        GPIO.output(self.clockwisepin, GPIO.HIGH)
         GPIO.output(self.counterclockwisepin, GPIO.LOW)
+        GPIO.output(self.clockwisepin, GPIO.HIGH)
         self.pwm.ChangeDutyCycle(speed)
 
 
@@ -93,8 +93,8 @@ class L298Motor(robit.motor.bases.Motor):
         rotate the motor counterclockwise
         '''
         self.pwm.ChangeDutyCycle(0)
-        GPIO.output(self.counterclockwisepin, GPIO.HIGH)
         GPIO.output(self.clockwisepin, GPIO.LOW)
+        GPIO.output(self.counterclockwisepin, GPIO.HIGH)
         self.pwm.ChangeDutyCycle(speed)
 
     def stop(self):
@@ -109,6 +109,7 @@ class L298Motor(robit.motor.bases.Motor):
         '''
         hard stop the motor with resistave induction
         '''
-        self.pwm.ChangeDutyCycle(100)
+        self.pwm.ChangeDutyCycle(0)
         GPIO.output(self.counterclockwisepin, GPIO.LOW)
         GPIO.output(self.clockwisepin, GPIO.LOW)
+        self.pwm.ChangeDutyCycle(100)
